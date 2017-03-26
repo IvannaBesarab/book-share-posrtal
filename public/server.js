@@ -2,6 +2,7 @@ var webpack = require('webpack');
 var WebpackDevServer = require('webpack-dev-server');
 var config = require('./webpack.config');
 
+var port = 8080;
 
 new WebpackDevServer(webpack(config), {
   publicPath: config.output.publicPath,
@@ -14,10 +15,10 @@ new WebpackDevServer(webpack(config), {
       pathRewrite: {'^/api' : ''}
     }
   }
-}).listen(5050, 'localhost', function (err, result) {
+}).listen(port, 'localhost', function (err, result) {
   if (err) {
     console.log(err);
   }
 
-  console.log(`Listening at localhost:5050`);
+  console.log('Listening at localhost:' + port + '/app');
 });

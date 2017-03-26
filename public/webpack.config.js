@@ -1,46 +1,46 @@
 var webpack = require('webpack');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
-
-var devFlagPlugin = new webpack.DefinePlugin({
-  __DEV__: JSON.stringify(JSON.parse(process.env.DEBUG || 'false'))
-});
-
+ 
 module.exports = {
   devtool: "cheap-module-eval-source-map",
+//  context: __dirname + '/app',
   entry: [
-    `webpack-dev-server/client?http://localhost:5050`,
+    'webpack-dev-server/client?http://localhost:8080',
     'webpack/hot/only-dev-server',
-    './js/main.js'
+    './app/scripts/main.jsx'
   ],
   output: {
-    path: __dirname + '/static/',
-    publicPath: '/static/',
+    path: __dirname + '/app/assets/',
+    publicPath: 'http://localhost:8080/',
     filename: 'bundle.js',
-    // hot: true
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-    // new webpack.NoErrorsPlugin(),
-    devFlagPlugin,
-    new ExtractTextPlugin('app.css')
+    new ExtractTextPlugin({
+          filename: 'styles.css',
+          allChunks: true
+        })
   ],
   module: {
-    loaders: [
-        {test: /\.js$/,
-        exclude: /node_modules/,
+    rules: [
+      {
+        test: /\.jsx$/,
+        use: ['react-hot-loader', 'babel-loader'],
+        exclude: /node_modules/                      
+      },
+      {
+        test: /\.scss$/,
+		use: ExtractTextPlugin.extract({fallback: 'style-loader', use:['css-loader', 'sass-loader']})
         
-        loader: ['react-hot-loader', 'babel-loader'],
-        // query:{
-        //   presets: ['es2015', 'react'],
-        //   plugins: ['react-html-attrs', 'transform-class-properties'],
-        // }
-                 
+      },
+      {
+        test: /\.css$/,
+		use: [ 'css-loader']
       }
-      // { test: /\.js$/, loaders: ['react-hot-loader', 'babel-loader'], exclude: /node_modules/ },
-      // { test: /\.css$/, loader: ExtractTextPlugin.extract('css-loader?module!cssnext-loader') }
+      
     ]
   },
   resolve: {
-    extensions: ['.js', '.json']
+    extensions: ['.js', '.jsx', '.json']
   }
 };

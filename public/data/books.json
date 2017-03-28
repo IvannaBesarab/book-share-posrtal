@@ -1,0 +1,20 @@
+{
+  
+"books":[
+    {
+      "id":0,
+      "title": "Світила",
+      "descriptiton": "porchetta round belly biltong round mignon ground pancetta ham jowl pork ribs 
+                      corned ball shankle turkey mignon beef ribeye short tail ground turducken 
+                      bresaola steak spare ribeye pork ball andouille steak ribs bierschinken doner 
+                      ground bacon andouillette hock swine turducken",
+      "author":"Еліонор Каттон",
+      "publishDate": 2013,
+      "language":"Укр",
+      "ownerId": 1,
+      "location":"",
+      "isBorrowed": false,
+      "reviews": [""]      
+    }
+  ]
+}
